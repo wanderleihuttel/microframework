@@ -22,6 +22,18 @@ class Route
       }
       $this->routes = $newRoutes;
    }
+   
+   private function getRequest()
+   {
+      $obj = new \stdClass;
+      foreach($_GET as $key => $value){
+         $obj->get->$key = $value;
+      }
+      foreach($_POST as $key => $value){
+         $obj->post->$key = $value;
+      }
+      return $obj;
+   }
     
    private function getUrl()
    {
@@ -56,24 +68,26 @@ class Route
          $controller = Container::newController($controller);
          switch(count($params)){
             case 1: 
-               $controller->$action($params[0]);
+               $controller->$action($params[0], $this->getRequest());
                break;
             case 2: 
-               $controller->$action($params[0], $params[1]);
+               $controller->$action($params[0], $params[1], $this->getRequest());
                break;
             case 3: 
-               $controller->$action($params[0], $params[1], $params[2]);
+               $controller->$action($params[0], $params[1], $params[2], $this->getRequest());
                break;
             case 4: 
-               $controller->$action($params[0], $params[1], $params[2], $params[3]);
+               $controller->$action($params[0], $params[1], $params[2], $params[3], $this->getRequest());
                break;
             case 5: 
-               $controller->$action($params[0], $params[1], $params[2], $params[3], $params[4]);
+               $controller->$action($params[0], $params[1], $params[2], $params[3], $params[4], $this->getRequest());
                break;
             default:
-               $controller->$action();
+               $controller->$action($this->getRequest());
                break;
          }
+      } else {
+         echo "Página não encontrada!";
       }
       
    }
