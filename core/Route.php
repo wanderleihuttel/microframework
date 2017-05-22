@@ -40,25 +40,42 @@ class Route
          for($i=0; $i < count($routeArray); $i++){
             if( (strpos($routeArray[$i], "{") !== false) && (count($urlArray) == count($routeArray))){
                $routeArray[$i] = $urlArray[$i];
-               $param[] = $urlArray[$i];
+               $params[] = $urlArray[$i];
             }
             $route[0] = implode($routeArray, '/');
          }
 
          if($url == $route[0]){
-            $route_found = true;
+            $route_found = 1;
             $controller = $route[1];
             $action = $route[2];
             break;
-            echo $route[0] . "<br />";
-            echo $route[1] . "<br />";
-            echo $route[2] . "<br />";
-            echo $param[0];
-         }
-         if($route_found){
-            
          }
       }
+      if($route_found){
+         $controller = Container::newController($controller);
+         switch(count($params)){
+            case 1: 
+               $controller->$action($params[0]);
+               break;
+            case 2: 
+               $controller->$action($params[0], $params[1]);
+               break;
+            case 3: 
+               $controller->$action($params[0], $params[1], $params[2]);
+               break;
+            case 4: 
+               $controller->$action($params[0], $params[1], $params[2], $params[3]);
+               break;
+            case 5: 
+               $controller->$action($params[0], $params[1], $params[2], $params[3], $params[4]);
+               break;
+            default:
+               $controller->$action();
+               break;
+         }
+      }
+      
    }
    
    
