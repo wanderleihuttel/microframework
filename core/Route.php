@@ -9,8 +9,18 @@ class Route
     
    public function __construct(array $routes)
    {
-      $this->routes = $routes;
+      $this->setRoutes($routes);
       $this->run();
+   }
+   
+   private function setRoutes($routes)
+   {
+      foreach($routes as $route){
+         $explode = explode('@', $route[1]);
+         $r = [$route[0], $explode[0], $explode[1] ];
+         $newRoutes[] = $r;
+      }
+      $this->routes = $newRoutes;
    }
     
    private function getUrl()
@@ -23,26 +33,30 @@ class Route
    {
       $url = $this->getUrl();
       $urlArray = explode('/', $url);
-      print_r( $urlArray );
-      echo "<br/>";
 
       foreach($this->routes as $route){
          $routeArray = explode('/', $route[0]);
-         echo "<br/>";
-         print_r ($routeArray);
                  
          for($i=0; $i < count($routeArray); $i++){
             if( (strpos($routeArray[$i], "{") !== false) && (count($urlArray) == count($routeArray))){
                $routeArray[$i] = $urlArray[$i];
+               $param[] = $urlArray[$i];
             }
             $route[0] = implode($routeArray, '/');
          }
 
          if($url == $route[0]){
-            echo "<br/> Rota Válida!"; 
+            $route_found = true;
+            $controller = $route[1];
+            $action = $route[2];
             break;
-         } else {
-            echo "<br/> Rota Inválida!";
+            echo $route[0] . "<br />";
+            echo $route[1] . "<br />";
+            echo $route[2] . "<br />";
+            echo $param[0];
+         }
+         if($route_found){
+            
          }
       }
    }
