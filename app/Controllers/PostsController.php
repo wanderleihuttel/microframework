@@ -9,6 +9,7 @@ class PostsController extends BaseController
    public function index()
    {
       echo "Posts";
+      //$this->renderView('home/index', 'layout');
    }
 
    public function show($id, $request)

@@ -7,6 +7,7 @@ class BaseController
    protected $view;
    private $viewPath;
    private $layoutPath;
+   private $title = null;
    
    public function __construct()
    {
@@ -40,8 +41,23 @@ class BaseController
       if(file_exists( __DIR__ . "/../app/Views/{$this->layoutPath}.phtml")){
          require_once __DIR__ . "/../app/Views/{$this->layoutPath}.phtml";
       } else {
-         echo "Error: Layout path not found!<br>$path";
+         echo "Error: Layout path not found!<br/>$path";
       }
    }
+
+   protected function setPageTitle($title)
+   {
+      $this->title = $title;
+   }
+
+   protected function getPageTitle($separator=null)
+   {
+      if($separator){
+         echo $this->title . " " . $separator . " ";
+      } else {
+          echo $this->title;
+      }
+   }
+
     
 }

@@ -1,2 +1,24 @@
-<?php echo $this->content(); ?>
-<p>View com layout</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- As 3 meta tags acima *devem* vir em primeiro lugar dentro do `head`; qualquer outro conteúdo deve vir *após* essas tags -->
+    <title><?php $this->getPageTitle('-'); ?>Microframework</title>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    
+  </head>
+  <body>
+  <?php require_once __DIR__ . "/menu.phtml"; ?>
+  <div class="container-fluid">
+     <div class="row">
+        <?php $this->content(); ?>
+     </div><!-- end div row -->
+  </div><!-- end div container -->
+  </body>
+</html>
