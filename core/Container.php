@@ -10,6 +10,12 @@ class Container
       return new $controller;
    }
 
+   public static function getModel($model)
+   {
+      $model = "\\App\\Models\\" . $model;
+      return new $model(Database::getDatabase());
+   }
+
    public static function pageNotFound(){
       if (file_exists(__DIR__ . "/../app/Views/404.phtml")){
          return require_once __DIR__ . "/../app/Views/404.phtml";

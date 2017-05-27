@@ -1,15 +1,19 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Post;
 use Core\BaseController;
+use Core\Container;
+use Core\Database;
 
 
 class PostsController extends BaseController
 {
    public function index()
    {
-      echo "Posts";
-      //$this->renderView('home/index', 'layout');
+      $model = Container::getModel("Post");
+      $posts = $model->All();
+      print_r($posts);
    }
 
    public function show($id, $request)

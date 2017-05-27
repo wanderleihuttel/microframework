@@ -14,11 +14,11 @@ return [
 
 	'mysql' => [
 		'host' => 'localhost',
-		'database' => 'mvc',
-		'user' => 'root',
+		'db_name' => 'mvc',
+		'username' => 'mvc',
 		'password' => '123456',
 		'charset' => 'utf8',
 		'collation' => 'utf8_unicode_ci'
 	]
 
-]
+];
