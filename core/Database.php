@@ -7,7 +7,7 @@ use PDOException;
 
 class Database
 {
-	public function getDatabase()
+	public static function getDatabase()
    {
 	   $conf = require_once __DIR__ . "/../app/database.php";
 		if($conf['driver']=='sqlite'){
