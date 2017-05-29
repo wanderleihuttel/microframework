@@ -11,9 +11,10 @@ class PostsController extends BaseController
 {
    public function index()
    {
+      $this->setPageTitle("Todos Posts");
       $model = Container::getModel("Post");
-      $posts = $model->All();
-      print_r($posts);
+      $this->view->posts = $model->All();
+      $this->renderView('posts/index', 'layout');
    }
 
    public function show($id, $request)
