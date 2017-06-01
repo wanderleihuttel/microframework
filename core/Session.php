@@ -23,7 +23,7 @@ class Session
    {
       if(is_array($keys)){
          foreach ($keys as $key) {
-            unset()$_SESSION[$key];
+            unset($_SESSION[$key]);
          }
       } else {
          unset($_SESSION[$keys]);

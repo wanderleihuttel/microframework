@@ -1,6 +1,8 @@
 <div class="container">
    <div class="row">
       <h1 class="h1">
+          <h1><?php print_r($this->view->success); ?></h1>
+          <h1><?php print_r($this->view->error); ?></h1>
          <?php echo  $this->getPageTitle(); ?>
          <a href="/posts/create" class="btn btn-default pull-right">
             <i class="glyphicon glyphicon-plus"></i>

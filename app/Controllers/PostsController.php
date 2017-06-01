@@ -6,6 +6,7 @@ use Core\BaseController;
 use Core\Container;
 use Core\Database;
 use Core\Redirect;
+use Core\Session;
 
 
 class PostsController extends BaseController
@@ -21,6 +22,14 @@ class PostsController extends BaseController
    
    public function index()
    {
+      if(Session::get('success')){
+         $this->view->success = Session::get('success');
+         Session::destroy('success');
+      }
+      if(Session::get('error')){
+         $this->view->success = Session::get('error');
+         Session::destroy('success');
+      }
       $this->setPageTitle("Todos Posts");
       $this->view->posts = $this->post->All();
       $this->renderView('posts/index', 'layout');
@@ -47,9 +56,9 @@ class PostsController extends BaseController
       ];
       
       if($this->post->create($data)){
-         Redirect::route('/posts');
+         return Redirect::route('/posts');
       } else {
-         echo "Erro ao inserir no banco de dados!";
+         return  "Erro ao inserir no banco de dados!";
       }
    }
    
@@ -67,19 +76,19 @@ class PostsController extends BaseController
          'content' => $request->post->content
       ];
    
-      if($this->post->update($data,$id)){
-         Redirect::route('/posts',[ 'success' => 'Post atualizado com sucesso!']);
+      if(!$this->post->update($data,$id)){
+         return Redirect::route('/posts',[ 'success' => ['Post atualizado com sucesso!']]);
       } else {
-         echo "Erro ao atualizar no banco de dados!";
+         return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao atualizar o post!']]);
       }
    }
    
    public function delete($id)
    {
       if($this->post->delete($id)){
-         Redirect::route('/posts');
+         return Redirect::route('/posts');
       } else {
-         echo "Erro ao excluir registro!";
+         return "Erro ao excluir registro!";
       }
    }
 
