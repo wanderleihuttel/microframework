@@ -33,7 +33,10 @@ class PostsController extends BaseController
 
    public function store($request)
    {
-      print_r($request);
+      $data = [
+         'title'   => $request->post->title,
+         'content' => $request->post->content
+      ];
    }
 
 }
