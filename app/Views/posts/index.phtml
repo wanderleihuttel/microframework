@@ -4,7 +4,8 @@
          <?php echo  $this->getPageTitle(); ?>
          <a href="/posts/create" class="btn btn-default pull-right">
             <i class="glyphicon glyphicon-plus"></i>
-            New Post</a>
+            New Post
+         </a>
       </h1>
    </div>
    <?php foreach ($this->view->posts as $post): ?>
@@ -19,6 +20,11 @@
            <a href="/posts/<?php echo $post->id; ?>/edit" class="btn btn-warning btn-xs">
                <i class="glyphicon glyphicon-pencil"></i>
            </a>
+           <a href="/posts/<?php echo $post->id; ?>/delete" class="btn btn-danger btn-xs"
+             onclick="return confirm('Tem certeza que deseja excluir este post?');">
+               <i class="glyphicon glyphicon-remove-sign"></i>
+           </a>
+           
        </p>
       <hr>
    </div>

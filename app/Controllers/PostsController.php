@@ -73,5 +73,14 @@ class PostsController extends BaseController
          echo "Erro ao atualizar no banco de dados!";
       }
    }
+   
+   public function delete($id)
+   {
+      if($this->post->delete($id)){
+         Redirect::route('/posts');
+      } else {
+         echo "Erro ao excluir registro!";
+      }
+   }
 
 }
