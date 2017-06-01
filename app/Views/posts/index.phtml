@@ -2,6 +2,9 @@
    <div class="row">
       <h1 class="h1">
          <?php echo  $this->getPageTitle(); ?>
+         <a href="/posts/create" class="btn btn-default pull-right">
+            <i class="glyphicon glyphicon-plus"></i>
+            New Post</a>
       </h1>
    </div>
    <?php foreach ($this->view->posts as $post): ?>
