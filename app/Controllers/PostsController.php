@@ -52,5 +52,17 @@ class PostsController extends BaseController
          echo "Erro ao inserir no banco de dados!";
       }
    }
+   
+   public function edit($id)
+   {
+      $this->view->post = $this->post->find($id);
+      $this->setPageTitle('Edit post - ' . $this->view->post->title);
+      $this->renderView('posts/edit', 'layout');
+   }
+   
+   public function update($id, $request)
+   {
+   
+   }
 
 }
