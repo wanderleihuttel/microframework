@@ -62,7 +62,16 @@ class PostsController extends BaseController
    
    public function update($id, $request)
    {
+      $data = [
+         'title'   => $request->post->title,
+         'content' => $request->post->content
+      ];
    
+      if($this->post->update($data,$id)){
+         Redirect::route('/posts');
+      } else {
+         echo "Erro ao atualizar no banco de dados!";
+      }
    }
 
 }
