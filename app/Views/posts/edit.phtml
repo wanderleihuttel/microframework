@@ -2,18 +2,18 @@
    <h3 class="h3"><?php echo $this->getPageTitle(); ?></h3>
    
    <form action="/posts/<?php echo $this->view->post->id; ?>/update" method="post" accept-charset="utf-8">
-      <div class="form-group <?php echo ($this->view->error['title']) ? 'has-error' : '' ?>">
+      <div class="form-group <?php echo ($this->error['title']) ? 'has-error' : '' ?>">
          <label for="title" class="control-label">Title</label>
-         <input type="text" name="title" class="form-control" value="<?php echo isset($this->view->input['title'])? $this->view->input['title'] : $this->view->post->title; ?>">
-          <?php if($this->view->error['title']): ?>
-          <span class="help-block"><?php echo $this->view->error['title']; ?></span>
+         <input type="text" name="title" class="form-control" value="<?php echo isset($this->input['title'])? $this->input['title'] : $this->view->post->title; ?>">
+          <?php if($this->error['title']): ?>
+          <span class="help-block"><?php echo $this->error['title']; ?></span>
           <?php endif; ?>
       </div>
-       <div class="form-group <?php echo ($this->view->error['content']) ? 'has-error' : '' ?>">
+       <div class="form-group <?php echo ($this->error['content']) ? 'has-error' : '' ?>">
          <label for="content" class="control-label">Content</label>
-         <textarea name="content" class="form-control" rows="15"><?php echo isset($this->view->input['content']) ? $this->view->input['content'] : $this->view->post->content; ?></textarea>
-         <?php if($this->view->error['content']): ?>
-             <span class="help-block"><?php echo  $this->view->error['content']; ?></span>
+         <textarea name="content" class="form-control" rows="15"><?php echo isset($this->input['content']) ? $this->input['content'] : $this->view->post->content; ?></textarea>
+         <?php if($this->error['content']): ?>
+             <span class="help-block"><?php echo  $this->error['content']; ?></span>
          <?php endif; ?>
          
       </div>

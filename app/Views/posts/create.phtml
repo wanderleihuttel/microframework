@@ -2,13 +2,20 @@
    <h1 class="h1"><?php echo $this->getPageTitle(); ?></h1>
 
    <form action="/posts/store" method="post" accept-charset="utf-8">
-      <div class="form-group">
-         <label for="title">Title</label>
-         <input type="text" name="title" class="form-control">
+       <div class="form-group <?php echo ($this->error['title']) ? 'has-error' : '' ?>">
+         <label for="title" class="control-label">Title</label>
+         <input type="text" name="title" class="form-control" value="<?php echo (isset($this->input['title'])) ? $this->input->title : '' ?>">
+          <?php if($this->error['title']): ?>
+          <span class=\"help-block\"><?php echo $this->error['title']; ?></span>
+          <?php endif; ?>
       </div>
-      <div class="form-group">
-         <label for="content">Content</label>
-         <textarea name="content" class="form-control" rows="15"></textarea>
+       <div class="form-group <?php echo ($this->error['content']) ? 'has-error' : '' ?>">
+         <label for="content" class="control-label">Content</label>
+         <textarea name="content" class="form-control" rows="15"><?php echo (isset($this->input['content']))? $this->input['content']: '' ?></textarea>
+          <?php if($this->error['content']): ?>
+              <span class=\"help-block\"><?php echo $this->error['content']; ?></span>
+          <?php endif; ?>
+          
       </div>
       <a href="/posts" class="btn btn-default">Cancel</a>
       <button type="submit" class="btn btn-primary">Save</button>

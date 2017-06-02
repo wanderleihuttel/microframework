@@ -21,14 +21,6 @@ class PostsController extends BaseController
    
    public function index()
    {
-      if(Session::get('success')){
-         $this->view->success = Session::get('success');
-         Session::destroy('success');
-      }
-      if(Session::get('error')){
-         $this->view->error = Session::get('error');
-         Session::destroy('error');
-      }
       $this->setPageTitle("Todos Posts");
       $this->view->posts = $this->post->All();
       return $this->renderView('posts/index', 'layout');
@@ -63,15 +55,6 @@ class PostsController extends BaseController
    
    public function edit($id)
    {
-      if(Session::get('error')){
-         $this->view->error = Session::get('error');
-         Session::destroy('error');
-      }
-      if(Session::get('input')){
-         $this->view->input = Session::get('input');
-         Session::destroy('input');
-      }
-      
       $this->view->post = $this->post->find($id);
       $this->setPageTitle('Edit post - ' . $this->view->post->title);
       return $this->renderView('posts/edit', 'layout');

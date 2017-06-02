@@ -5,6 +5,9 @@ namespace Core;
 class BaseController
 {
    protected $view;
+   protected $error;
+   protected $success;
+   protected $input;
    private $viewPath;
    private $layoutPath;
    private $title = null;
@@ -12,6 +15,18 @@ class BaseController
    public function __construct()
    {
       $this->view = new \stdClass;
+      if(Session::get('success')){
+         $this->success = Session::get('success');
+         Session::destroy('success');
+      }
+      if(Session::get('error')){
+         $this->error = Session::get('error');
+         Session::destroy('error');
+      }
+      if(Session::get('input')){
+         $this->input = Session::get('input');
+         Session::destroy('input');
+      }
    }
    
    protected function renderView($viewPath, $layoutPath = null)
