@@ -27,8 +27,8 @@ class PostsController extends BaseController
          Session::destroy('success');
       }
       if(Session::get('error')){
-         $this->view->success = Session::get('error');
-         Session::destroy('success');
+         $this->view->error = Session::get('error');
+         Session::destroy('error');
       }
       $this->setPageTitle("Todos Posts");
       $this->view->posts = $this->post->All();
@@ -76,7 +76,7 @@ class PostsController extends BaseController
          'content' => $request->post->content
       ];
    
-      if(!$this->post->update($data,$id)){
+      if($this->post->update($data,$id)){
          return Redirect::route('/posts',[ 'success' => ['Post atualizado com sucesso!']]);
       } else {
          return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao atualizar o post!']]);
