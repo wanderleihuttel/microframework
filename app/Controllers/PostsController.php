@@ -32,20 +32,20 @@ class PostsController extends BaseController
       }
       $this->setPageTitle("Todos Posts");
       $this->view->posts = $this->post->All();
-      $this->renderView('posts/index', 'layout');
+      return $this->renderView('posts/index', 'layout');
    }
 
    public function show($id)
    {
       $this->view->post = $this->post->find($id);
       $this->setPageTitle($this->view->post->title);
-      $this->renderView('posts/show', 'layout');
+      return $this->renderView('posts/show', 'layout');
    }
 
    public function create()
    {
       $this->setPageTitle("New post");
-      $this->renderView('posts/create', 'layout');
+      return $this->renderView('posts/create', 'layout');
    }
 
    public function store($request)
@@ -56,9 +56,9 @@ class PostsController extends BaseController
       ];
       
       if($this->post->create($data)){
-         return Redirect::route('/posts');
+         return Redirect::route('/posts',[ 'success' => ['Inserção efetuada com sucesso!']]);
       } else {
-         return  "Erro ao inserir no banco de dados!";
+         return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao efetuar o inserção!']]);
       }
    }
    
@@ -66,7 +66,7 @@ class PostsController extends BaseController
    {
       $this->view->post = $this->post->find($id);
       $this->setPageTitle('Edit post - ' . $this->view->post->title);
-      $this->renderView('posts/edit', 'layout');
+      return $this->renderView('posts/edit', 'layout');
    }
    
    public function update($id, $request)
@@ -77,18 +77,18 @@ class PostsController extends BaseController
       ];
    
       if($this->post->update($data,$id)){
-         return Redirect::route('/posts',[ 'success' => ['Post atualizado com sucesso!']]);
+         return Redirect::route('/posts',[ 'success' => ['Alteração efetuada com sucesso!']]);
       } else {
-         return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao atualizar o post!']]);
+         return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao efetuar a alteração!']]);
       }
    }
    
    public function delete($id)
    {
       if($this->post->delete($id)){
-         return Redirect::route('/posts');
+         return Redirect::route('/posts',[ 'success' => ['Exclusão efetuada com sucesso!']]);
       } else {
-         return "Erro ao excluir registro!";
+         return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao efetuar a exclusão!']]);
       }
    }
 

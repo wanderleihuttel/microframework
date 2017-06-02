@@ -19,9 +19,9 @@ class BaseController
       $this->viewPath = $viewPath;
       $this->layoutPath = $layoutPath;
       if($layoutPath){
-         $this->setLayout();
+         return $this->setLayout();
       } else {
-         $this->content();
+         return  $this->content();
       }
    }
    
@@ -29,7 +29,7 @@ class BaseController
    {
       $path = __DIR__ . "/../app/Views/{$this->viewPath}.phtml";
       if(file_exists( __DIR__ . "/../app/Views/{$this->viewPath}.phtml")){
-         require_once __DIR__ . "/../app/Views/{$this->viewPath}.phtml";
+         return require_once __DIR__ . "/../app/Views/{$this->viewPath}.phtml";
       } else {
          echo "Error: View path not found! <br/>$path";
       }
@@ -39,7 +39,7 @@ class BaseController
    {
       $path = __DIR__ . "/../app/Views/{$this->layoutPath}.phtml";
       if(file_exists( __DIR__ . "/../app/Views/{$this->layoutPath}.phtml")){
-         require_once __DIR__ . "/../app/Views/{$this->layoutPath}.phtml";
+         return require_once __DIR__ . "/../app/Views/{$this->layoutPath}.phtml";
       } else {
          echo "Error: Layout path not found!<br/>$path";
       }
@@ -53,9 +53,9 @@ class BaseController
    protected function getPageTitle($separator=null)
    {
       if($separator){
-         echo $this->title . " " . $separator . " ";
+         return $this->title . " " . $separator . " ";
       } else {
-          echo $this->title;
+         return $this->title;
       }
    }
 
