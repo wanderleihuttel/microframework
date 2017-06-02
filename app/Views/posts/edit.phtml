@@ -1,5 +1,6 @@
 <div class="container">
    <h3 class="h3"><?php echo $this->getPageTitle(); ?></h3>
+    <?php $this->renderView('alerts/_error'); ?>
    
    <form action="/posts/<?php echo $this->view->post->id; ?>/update" method="post" accept-charset="utf-8">
       <div class="form-group">

@@ -7,13 +7,14 @@ class Validator
 {
    public static function make(array $data,array $rules)
    {
-      foreach ($rules as $ruleKey as $ruleValue){
-         foreach ($data as $dataKey as $dataValue){
+      $errors = [];
+      foreach ($rules as $ruleKey => $ruleValue){
+         foreach ($data as $dataKey => $dataValue){
             if($ruleKey == $dataKey){
                switch ($ruleValue){
                   case 'required':
                      if($dataValue=='' || empty($dataValue)){
-                        $errors[$ruleKey] = "O campo {$ruleKey} deve preenchido."
+                        $errors[$ruleKey] = "O campo {$ruleKey} deve preenchido.";
                      }
                      break;
                   case 'email':
@@ -34,6 +35,13 @@ class Validator
                }
             }
          }
+      }
+      if($errors){
+         Session::set('error',$errors);
+         return true;
+      } else {
+         Session::destroy('errors');
+         return false;
       }
    }
    
