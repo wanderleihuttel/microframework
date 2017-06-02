@@ -6,7 +6,7 @@ return [
    /*
     *  Options (mysql, sqlite)
     */
-   'driver' => 'sqlite',
+   'driver' => 'mysql',
 
    'sqlite' => [
       'database' => 'database.db',

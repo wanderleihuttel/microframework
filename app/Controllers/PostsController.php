@@ -1,10 +1,8 @@
 <?php
 namespace App\Controllers;
-
+use App\Models\Post;
 use Core\BaseController;
-use Core\Container;
 use Core\Redirect;
-use Core\Session;
 use Core\Validator;
 
 
@@ -15,7 +13,7 @@ class PostsController extends BaseController
    public function __construct()
    {
       parent::__construct();
-      $this->post = Container::getModel("Post");
+      $this->post = new Post();
       
    }
    
@@ -45,12 +43,20 @@ class PostsController extends BaseController
          'title'   => $request->post->title,
          'content' => $request->post->content
       ];
-      
+   
+      try{
+         $this->post->create($data);
+         return Redirect::route('/posts',[ 'success' => ['Inserção efetuada com sucesso!']]);
+      } catch(\Exception $e){
+         return Redirect::route('/posts',[ 'error' => $e->getMessage()]);
+      }
+      /*
       if($this->post->create($data)){
          return Redirect::route('/posts',[ 'success' => ['Inserção efetuada com sucesso!']]);
       } else {
          return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao efetuar o inserção!']]);
       }
+      */
    }
    
    public function edit($id)
@@ -70,20 +76,40 @@ class PostsController extends BaseController
       if(Validator::make($data,$this->post->rules())){
          return Redirect::route("/posts/{$id}/edit");
       }
+      
+      try{
+         $post = $this->post->find($id);
+         $post->update($data);
+         return Redirect::route('/posts',[ 'success' => ['Alteração efetuada com sucesso!']]);
+      } catch(\Exception $e){
+         return Redirect::route('/posts',[ 'error' => $e->getMessage()]);
+      }
+      
+      /*
       if($this->post->update($data,$id)){
          return Redirect::route('/posts',[ 'success' => ['Alteração efetuada com sucesso!']]);
       } else {
          return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao efetuar a alteração!']]);
       }
+      */
    }
    
    public function delete($id)
    {
+      try{
+         $post = $this->post->find($id);
+         $post->delete($id);
+         return Redirect::route('/posts',[ 'success' => ['Exclusão efetuada com sucesso!']]);
+      } catch(\Exception $e){
+         return Redirect::route('/posts',[ 'error' => $e->getMessage()]);
+      }
+      /*
       if($this->post->delete($id)){
          return Redirect::route('/posts',[ 'success' => ['Exclusão efetuada com sucesso!']]);
       } else {
          return Redirect::route('/posts',[ 'error' => ['Ocorreu um erro ao efetuar a exclusão!']]);
       }
+      */
    }
 
 }
