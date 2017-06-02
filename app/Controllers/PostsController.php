@@ -1,10 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Post;
 use Core\BaseController;
 use Core\Container;
-use Core\Database;
 use Core\Redirect;
 use Core\Session;
 use Core\Validator;
@@ -69,6 +67,11 @@ class PostsController extends BaseController
          $this->view->error = Session::get('error');
          Session::destroy('error');
       }
+      if(Session::get('input')){
+         $this->view->input = Session::get('input');
+         Session::destroy('input');
+      }
+      
       $this->view->post = $this->post->find($id);
       $this->setPageTitle('Edit post - ' . $this->view->post->title);
       return $this->renderView('posts/edit', 'layout');
@@ -81,12 +84,7 @@ class PostsController extends BaseController
          'content' => $request->post->content
       ];
    
-      $rules = [
-         'title'   => 'required',
-         'content' => 'required'
-      ];
-      
-      $validator = Validator::make($data,$rules);
+      $validator = Validator::make($data,$this->post->rules());
       
       if($validator){
          return Redirect::route("/posts/{$id}/edit");

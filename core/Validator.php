@@ -14,22 +14,22 @@ class Validator
                switch ($ruleValue){
                   case 'required':
                      if($dataValue=='' || empty($dataValue)){
-                        $errors[$ruleKey] = "O campo {$ruleKey} deve preenchido.";
+                        $errors[$ruleKey] = "O campo '{$ruleKey}' deve preenchido.";
                      }
                      break;
                   case 'email':
                      if(!filter_var($dataValue,FILTER_VALIDATE_EMAIL)){
-                        $errors[$ruleKey] = "O campo {$ruleKey} não é válido.";
+                        $errors[$ruleKey] = "O campo '{$ruleKey}' não é válido.";
                      }
                      break;
                   case 'float':
                      if(!filter_var($dataValue,FILTER_VALIDATE_FLOAT)){
-                        $errors[$ruleKey] = "O campo {$ruleKey} deve conter um número decimal.";
+                        $errors[$ruleKey] = "O campo '{$ruleKey}' deve conter um número decimal.";
                      }
                      break;
                   case 'integer':
                      if(!filter_var($dataValue,FILTER_VALIDATE_INT)){
-                        $errors[$ruleKey] = "O campo {$ruleKey} deve conter um número inteiro.";
+                        $errors[$ruleKey] = "O campo '{$ruleKey}' deve conter um número inteiro.";
                      }
                      break;
                }
@@ -38,9 +38,10 @@ class Validator
       }
       if($errors){
          Session::set('error',$errors);
+         Session::set('input',$data);
          return true;
       } else {
-         Session::destroy('errors');
+         Session::destroy(['error','input']);
          return false;
       }
    }

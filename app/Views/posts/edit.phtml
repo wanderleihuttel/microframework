@@ -1,15 +1,21 @@
 <div class="container">
    <h3 class="h3"><?php echo $this->getPageTitle(); ?></h3>
-    <?php $this->renderView('alerts/_error'); ?>
    
    <form action="/posts/<?php echo $this->view->post->id; ?>/update" method="post" accept-charset="utf-8">
-      <div class="form-group">
-         <label for="title">Title</label>
-         <input type="text" name="title" class="form-control" value="<?php echo $this->view->post->title; ?>">
+      <div class="form-group <?php echo ($this->view->error['title']) ? 'has-error' : '' ?>">
+         <label for="title" class="control-label">Title</label>
+         <input type="text" name="title" class="form-control" value="<?php echo isset($this->view->input['title'])? $this->view->input['title'] : $this->view->post->title; ?>">
+          <?php if($this->view->error['title']): ?>
+          <span class="help-block"><?php echo $this->view->error['title']; ?></span>
+          <?php endif; ?>
       </div>
-      <div class="form-group">
-         <label for="content">Content</label>
-         <textarea name="content" class="form-control" rows="15"><?php echo $this->view->post->content; ?></textarea>
+       <div class="form-group <?php echo ($this->view->error['content']) ? 'has-error' : '' ?>">
+         <label for="content" class="control-label">Content</label>
+         <textarea name="content" class="form-control" rows="15"><?php echo isset($this->view->input['content']) ? $this->view->input['content'] : $this->view->post->content; ?></textarea>
+         <?php if($this->view->error['content']): ?>
+             <span class="help-block"><?php echo  $this->view->error['content']; ?></span>
+         <?php endif; ?>
+         
       </div>
       <a href="/posts" class="btn btn-default">Cancel</a>
       <button type="submit" class="btn btn-primary">Save</button>
