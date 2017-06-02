@@ -9,6 +9,27 @@ class Validator
    {
       $errors = [];
       foreach ($rules as $ruleKey => $ruleValue){
+         
+         if(strpos($ruleValue,":")){
+            $itens = explode(":", $ruleValue);
+            foreach ($data as $dataKey => $dataValue) {
+               if($ruleKey == $dataKey){
+                  switch ($itens[0]){
+                     case 'min':
+                        if(strlen($dataValue)< $itens[1]){
+                           $errors[$ruleKey] = "O campo '{$ruleKey}' deve conter no mínimo {$itens[1]} caracteres.";
+                        }
+                     break;
+                     case 'max':
+                        if(strlen($dataValue)< $itens[1]){
+                           $errors[$ruleKey] = "O campo '{$ruleKey}' deve conter no máximo {$itens[1]} caracteres.";
+                        }
+                     break;
+                  }
+               }
+            }
+         } else{
+         
          foreach ($data as $dataKey => $dataValue){
             if($ruleKey == $dataKey){
                switch ($ruleValue){
@@ -34,6 +55,7 @@ class Validator
                      break;
                }
             }
+         }
          }
       }
       if($errors){

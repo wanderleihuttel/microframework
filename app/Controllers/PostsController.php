@@ -84,9 +84,7 @@ class PostsController extends BaseController
          'content' => $request->post->content
       ];
    
-      $validator = Validator::make($data,$this->post->rules());
-      
-      if($validator){
+      if(Validator::make($data,$this->post->rules())){
          return Redirect::route("/posts/{$id}/edit");
       }
       if($this->post->update($data,$id)){
