@@ -4,7 +4,7 @@
    <form action="/posts/store" method="post" accept-charset="utf-8">
        <div class="form-group <?php echo ($this->error['title']) ? 'has-error' : '' ?>">
          <label for="title" class="control-label">Title</label>
-         <input type="text" name="title" class="form-control" value="<?php echo (isset($this->input['title'])) ? $this->input->title : '' ?>">
+         <input type="text" name="title" class="form-control" value="<?php echo (isset($this->input['title'])) ? $this->input['title'] : '' ?>">
           <?php if($this->error['title']): ?>
           <span class=\"help-block\"><?php echo $this->error['title']; ?></span>
           <?php endif; ?>

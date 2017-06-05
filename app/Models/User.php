@@ -11,11 +11,15 @@ class User extends Model
    public $timestamps = false;
    public $fillable = ['name', 'email', 'password'];
    
-   public function rules()
+   public function rules($id=null)
    {
+      if(isset($id)){
+         $id=":$id";
+      }
       return [
-         'title'   => 'min:2|max:255',
-         'content' => 'min:10'
+         'name'   => 'min:4|max:255',
+         'email' => "email|unique:User:email{$id}",
+         'password' => 'min:5|max:50'
       ];
    }
 }
