@@ -43,12 +43,12 @@ class PostsController extends BaseController
          'title'   => $request->post->title,
          'content' => $request->post->content
       ];
-   
+      
       try{
          $this->post->create($data);
          return Redirect::route('/posts',[ 'success' => ['Inserção efetuada com sucesso!']]);
       } catch(\Exception $e){
-         return Redirect::route('/posts',[ 'error' => $e->getMessage()]);
+         return Redirect::route('/posts',[ 'error' => [$e->getMessage()]]);
       }
       /*
       if($this->post->create($data)){
@@ -82,7 +82,7 @@ class PostsController extends BaseController
          $post->update($data);
          return Redirect::route('/posts',[ 'success' => ['Alteração efetuada com sucesso!']]);
       } catch(\Exception $e){
-         return Redirect::route('/posts',[ 'error' => $e->getMessage()]);
+         return Redirect::route('/posts',[ 'error' => [$e->getMessage()]]);
       }
       
       /*
@@ -101,7 +101,7 @@ class PostsController extends BaseController
          $post->delete($id);
          return Redirect::route('/posts',[ 'success' => ['Exclusão efetuada com sucesso!']]);
       } catch(\Exception $e){
-         return Redirect::route('/posts',[ 'error' => $e->getMessage()]);
+         return Redirect::route('/posts',[ 'error' => [$e->getMessage()]]);
       }
       /*
       if($this->post->delete($id)){

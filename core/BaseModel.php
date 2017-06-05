@@ -39,6 +39,8 @@ abstract class BaseModel
    public function create(array $data)
    {
       $data = $this->prepareDataInsert($data);
+      
+      print_r($data); exit;
       $query = "INSERT INTO {$this->table} ({$data[0]}) VALUES ({$data[1]})";
       $stmt = $this->pdo->prepare($query);
       for($i=0; $i<count($data[2]);$i++){
