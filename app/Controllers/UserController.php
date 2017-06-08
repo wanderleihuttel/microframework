@@ -26,7 +26,7 @@ class UserController extends BaseController
       return $this->renderView('user/create','layout');
    }
    
-   public function store(array $request)
+   public function store($request)
    {
       $data = [
          'name' => $request->post->name,
@@ -40,7 +40,7 @@ class UserController extends BaseController
       
       $data['password'] = password_hash($request->post->password,PASSWORD_BCRYPT);
       try{
-         $post = $this->user->create($data);
+         $this->user->create($data);
          return Redirect::route('/',[ 'success' => ['Usuário criado com sucesso!']]);
       } catch(\Exception $e){
          return Redirect::route('/',[ 'error' => [$e->getMessage()]]);

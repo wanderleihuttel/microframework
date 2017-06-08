@@ -13,13 +13,13 @@ class User extends Model
    
    public function rules($id=null)
    {
-      if(isset($id)){
+      if($id){
          $id=":$id";
       }
       return [
          'name'   => 'min:4|max:255',
          'email' => "email|unique:User:email{$id}",
-         'password' => 'min:5|max:50'
+         'password' => 'min:6|max:16'
       ];
    }
 }
